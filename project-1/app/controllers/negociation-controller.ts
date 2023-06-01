@@ -11,9 +11,17 @@ export class NegociationController {
     this.inputPrice = document.querySelector("#price");
   }
 
+  public cleanForm(): void {
+    this.inputDate.value = "";
+    this.inputAmount.value = "0";
+    this.inputPrice.value = "0.0";
+    this.inputDate.focus();
+  }
+
   public add(): void {
     const negociation = this.createNegociation();
     console.log(negociation);
+    this.cleanForm();
   }
 
   private createNegociation(): Negociation {
