@@ -1,19 +1,13 @@
 export class Negociation {
-    constructor(date, amount, price) {
-        this._date = date;
-        this._amount = amount;
-        this._price = price;
-    }
-    get date() {
-        return this._date;
-    }
-    get amount() {
-        return this._amount;
-    }
-    get price() {
-        return this._price;
-    }
-    get volume() {
-        return this._amount * this._price;
-    }
+  constructor(_date, amount, price) {
+    this._date = _date;
+    this.amount = amount;
+    this.price = price;
+  }
+  get date() {
+    return new Date(this._date.getTime());
+  }
+  get volume() {
+    return this.amount * this.price;
+  }
 }
