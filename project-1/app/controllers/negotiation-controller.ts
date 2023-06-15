@@ -2,6 +2,7 @@ import { Negotiation } from "../models/negotiation.js";
 import { Negotiations } from "../models/negotiations.js";
 import { NegotiationsView } from "../views/negotiations-view.js";
 import { MessageView } from "../views/message-view.js";
+import { WeekDays } from "../enums/week-days.js";
 
 export class NegotiationController {
   private inputDate: HTMLInputElement;
@@ -20,6 +21,10 @@ export class NegotiationController {
 
   public add(): void {
     const negotiation = this.createNegotiation();
+    if (!this.is_business_day(negotiation.date)) {
+      this.messageView.update("Apenas negociações em dias úteis são aceitas!");
+      return;
+    }
     this.negotiations.add(negotiation);
     console.log(this.negotiations.list());
     this.cleanForm();
@@ -44,6 +49,15 @@ export class NegotiationController {
 
   private updateView(): void {
     this.negotiationsView.update(this.negotiations);
-    this.messageView.update("The negotiation was successfully added!");
+    this.messageView.update("A negociação foi criada com sucesso!");
+  }
+
+  private is_weekend(date: Date): boolean {
+    const weekend = [WeekDays.SUNDAY, WeekDays.SATURDAY];
+    return weekend.some((x) => x === date.getDay());
+  }
+
+  private is_business_day(date: Date): boolean {
+    return !this.is_weekend(date);
   }
 }
