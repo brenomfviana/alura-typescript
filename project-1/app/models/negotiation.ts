@@ -12,4 +12,16 @@ export class Negotiation {
   get volume(): number {
     return this.amount * this.price;
   }
+
+  public static create(
+    strDate: string,
+    strAmount: string,
+    strPrice: string,
+  ): Negotiation {
+    const exp = /-/g;
+    const date = new Date(strDate.replace(exp, ","));
+    const amount = parseInt(strAmount);
+    const price = parseFloat(strPrice);
+    return new Negotiation(date, amount, price);
+  }
 }
