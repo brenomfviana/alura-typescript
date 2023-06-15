@@ -16,7 +16,7 @@ export class Negotiation {
   public static create(
     strDate: string,
     strAmount: string,
-    strPrice: string,
+    strPrice: string
   ): Negotiation {
     const exp = /-/g;
     const date = new Date(strDate.replace(exp, ","));
