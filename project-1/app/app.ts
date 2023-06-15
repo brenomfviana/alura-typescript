@@ -1,5 +1,4 @@
 import { NegotiationController } from "./controllers/negotiation-controller.js";
-import { NegotiationsView } from "./views/negotiations-view.js";
 
 const controller = new NegotiationController();
 
