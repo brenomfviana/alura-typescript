@@ -3,6 +3,7 @@ import { Negotiations } from "../models/negotiations.js";
 import { NegotiationsView } from "../views/negotiations-view.js";
 import { MessageView } from "../views/message-view.js";
 import { WeekDays } from "../enums/week-days.js";
+import { runtime } from "../decorators/runtime.js";
 
 export class NegotiationController {
   private inputDate: HTMLInputElement;
@@ -19,6 +20,7 @@ export class NegotiationController {
     this.negotiationsView.update(this.negotiations);
   }
 
+  @runtime()
   public add(): void {
     const negotiation = Negotiation.create(
       this.inputDate.value,
@@ -30,7 +32,6 @@ export class NegotiationController {
       return;
     }
     this.negotiations.add(negotiation);
-    console.log(this.negotiations.list());
     this.cleanForm();
     this.updateView();
   }

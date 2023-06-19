@@ -1,3 +1,5 @@
+import { runtime } from "../decorators/runtime.js";
+
 export abstract class View<T> {
   protected element: HTMLElement;
   private escape: boolean = false;
@@ -14,6 +16,7 @@ export abstract class View<T> {
     }
   }
 
+  @runtime()
   public update(model: T): void {
     let template = this.template(model);
     if (this.escape) {
