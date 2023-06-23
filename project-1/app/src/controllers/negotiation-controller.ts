@@ -6,6 +6,7 @@ import { WeekDays } from "../enums/week-days.js";
 import { runtime } from "../decorators/runtime.js";
 import { domInjector } from "../decorators/dom-injector.js";
 import { NegotiationService } from "../services/negotitation-service.js";
+import { print } from "../utils/output.js";
 
 export class NegotiationController {
   @domInjector("#date")
@@ -35,6 +36,7 @@ export class NegotiationController {
       return;
     }
     this.negotiations.add(negotiation);
+    print(negotiation, this.negotiations);
     this.cleanForm();
     this.updateView();
   }

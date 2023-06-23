@@ -1,6 +1,7 @@
+import { Printable } from "../utils/printable.js";
 import { Negotiation } from "./negotiation.js";
 
-export class Negotiations {
+export class Negotiations implements Printable {
   private negotiations: Negotiation[] = [];
 
   public add(negotiation: Negotiation) {
@@ -9,5 +10,9 @@ export class Negotiations {
 
   public list(): readonly Negotiation[] {
     return this.negotiations;
+  }
+
+  public toString(): string {
+    return JSON.stringify(this.negotiations, null, 2);
   }
 }
