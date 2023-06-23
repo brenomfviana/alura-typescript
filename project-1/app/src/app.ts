@@ -2,7 +2,7 @@
   This comment will be removed.
 */
 
-import { NegotiationController } from "./src/controllers/negotiation-controller.js";
+import { NegotiationController } from "./controllers/negotiation-controller.js";
 
 const controller = new NegotiationController();
 

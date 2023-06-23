@@ -17,26 +17,20 @@ var __decorate =
           r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
   };
+import { inspect } from "../decorators/inspect.js";
 import { runtime } from "../decorators/runtime.js";
 export class View {
-  constructor(selector, escape) {
-    this.escape = false;
+  constructor(selector) {
     const element = document.querySelector(selector);
     if (element) {
       this.element = element;
     } else {
       throw Error(`Selector ${selector} does not exist in DOM.`);
     }
-    if (escape) {
-      this.escape = escape;
-    }
   }
   update(model) {
     let template = this.template(model);
-    if (this.escape) {
-      template = template.replace(/<script>[\s\S]*?<\/script>/, "");
-    }
     this.element.innerHTML = template;
   }
 }
-__decorate([runtime()], View.prototype, "update", null);
+__decorate([runtime(true), inspect], View.prototype, "update", null);
