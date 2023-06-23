@@ -11,11 +11,13 @@ import { MessageView } from "../views/message-view.js";
 import { WeekDays } from "../enums/week-days.js";
 import { runtime } from "../decorators/runtime.js";
 import { domInjector } from "../decorators/dom-injector.js";
+import { NegotiationService } from "../services/negotitation-service.js";
 export class NegotiationController {
     constructor() {
         this.negotiations = new Negotiations();
         this.negotiationsView = new NegotiationsView("#negotiationsView");
         this.messageView = new MessageView("#messageView");
+        this.negotiationService = new NegotiationService();
         this.negotiationsView.update(this.negotiations);
     }
     add() {
@@ -37,6 +39,14 @@ export class NegotiationController {
     updateView() {
         this.negotiationsView.update(this.negotiations);
         this.messageView.update("A negociação foi criada com sucesso!");
+    }
+    importData() {
+        this.negotiationService.requestNegotiations().then((negotiations) => {
+            for (let negotiation of negotiations) {
+                this.negotiations.add(negotiation);
+            }
+            this.negotiationsView.update(this.negotiations);
+        });
     }
     is_weekend(date) {
         const weekend = [WeekDays.SUNDAY, WeekDays.SATURDAY];

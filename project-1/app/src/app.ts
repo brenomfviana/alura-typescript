@@ -17,3 +17,12 @@ if (form) {
     "Unable to initialize the application. Check that the form exists."
   );
 }
+
+const importButton = document.querySelector("#import-button");
+if (importButton) {
+  importButton.addEventListener("click", () => {
+    controller.importData();
+  });
+} else {
+  throw Error("Import Button was not found!");
+}

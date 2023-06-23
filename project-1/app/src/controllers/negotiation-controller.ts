@@ -5,6 +5,7 @@ import { MessageView } from "../views/message-view.js";
 import { WeekDays } from "../enums/week-days.js";
 import { runtime } from "../decorators/runtime.js";
 import { domInjector } from "../decorators/dom-injector.js";
+import { NegotiationService } from "../services/negotitation-service.js";
 
 export class NegotiationController {
   @domInjector("#date")
@@ -16,6 +17,7 @@ export class NegotiationController {
   private negotiations = new Negotiations();
   private negotiationsView = new NegotiationsView("#negotiationsView");
   private messageView = new MessageView("#messageView");
+  private negotiationService = new NegotiationService();
 
   constructor() {
     this.negotiationsView.update(this.negotiations);
@@ -47,6 +49,15 @@ export class NegotiationController {
   private updateView(): void {
     this.negotiationsView.update(this.negotiations);
     this.messageView.update("A negociação foi criada com sucesso!");
+  }
+
+  public importData(): void {
+    this.negotiationService.requestNegotiations().then((negotiations) => {
+      for (let negotiation of negotiations) {
+        this.negotiations.add(negotiation);
+      }
+      this.negotiationsView.update(this.negotiations);
+    });
   }
 
   private is_weekend(date: Date): boolean {
