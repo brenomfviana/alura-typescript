@@ -4,19 +4,20 @@ import { NegotiationsView } from "../views/negotiations-view.js";
 import { MessageView } from "../views/message-view.js";
 import { WeekDays } from "../enums/week-days.js";
 import { runtime } from "../decorators/runtime.js";
+import { domInjector } from "../decorators/dom-injector.js";
 
 export class NegotiationController {
+  @domInjector("#date")
   private inputDate: HTMLInputElement;
+  @domInjector("#amount")
   private inputAmount: HTMLInputElement;
+  @domInjector("#price")
   private inputPrice: HTMLInputElement;
   private negotiations = new Negotiations();
   private negotiationsView = new NegotiationsView("#negotiationsView");
   private messageView = new MessageView("#messageView");
 
   constructor() {
-    this.inputDate = document.querySelector("#date") as HTMLInputElement;
-    this.inputAmount = document.querySelector("#amount") as HTMLInputElement;
-    this.inputPrice = document.querySelector("#price") as HTMLInputElement;
     this.negotiationsView.update(this.negotiations);
   }
 
