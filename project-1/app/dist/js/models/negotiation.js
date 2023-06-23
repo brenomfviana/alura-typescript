@@ -24,4 +24,9 @@ export class Negotiation {
       Price: ${this.price}
     `;
     }
+    isEqual(other) {
+        return (this.date.getDate() == other.date.getDate() &&
+            this.date.getMonth() == other.date.getMonth() &&
+            this.date.getFullYear() == other.date.getFullYear());
+    }
 }

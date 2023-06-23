@@ -1,7 +1,7 @@
-import { Printable } from "../utils/printable.js";
+import { Object } from "../interfaces/object.js";
 import { Negotiation } from "./negotiation.js";
 
-export class Negotiations implements Printable {
+export class Negotiations implements Object<Negotiations> {
   private negotiations: Negotiation[] = [];
 
   public add(negotiation: Negotiation) {
@@ -14,5 +14,9 @@ export class Negotiations implements Printable {
 
   public toString(): string {
     return JSON.stringify(this.negotiations, null, 2);
+  }
+
+  public isEqual(other: Negotiations): boolean {
+    return JSON.stringify(this.list()) === JSON.stringify(other.list());
   }
 }

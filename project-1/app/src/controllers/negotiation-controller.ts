@@ -54,12 +54,19 @@ export class NegotiationController {
   }
 
   public importData(): void {
-    this.negotiationService.requestNegotiations().then((negotiations) => {
-      for (let negotiation of negotiations) {
-        this.negotiations.add(negotiation);
-      }
-      this.negotiationsView.update(this.negotiations);
-    });
+    this.negotiationService
+      .requestNegotiations()
+      .then((negotiations) => {
+        return negotiations.filter((negotiation) => {
+          return !this.negotiations.list().some((n) => n.isEqual(negotiation));
+        });
+      })
+      .then((negotiations) => {
+        for (let negotiation of negotiations) {
+          this.negotiations.add(negotiation);
+        }
+        this.negotiationsView.update(this.negotiations);
+      });
   }
 
   private is_weekend(date: Date): boolean {

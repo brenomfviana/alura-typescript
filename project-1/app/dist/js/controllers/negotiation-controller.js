@@ -43,7 +43,14 @@ export class NegotiationController {
         this.messageView.update("A negociação foi criada com sucesso!");
     }
     importData() {
-        this.negotiationService.requestNegotiations().then((negotiations) => {
+        this.negotiationService
+            .requestNegotiations()
+            .then((negotiations) => {
+            return negotiations.filter((negotiation) => {
+                return !this.negotiations.list().some((n) => n.isEqual(negotiation));
+            });
+        })
+            .then((negotiations) => {
             for (let negotiation of negotiations) {
                 this.negotiations.add(negotiation);
             }
